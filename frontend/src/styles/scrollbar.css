@@ -1,0 +1,65 @@
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+ 
+    height: 10px;
+ }
+ 
+ ::-webkit-scrollbar-track {
+ 
+    background:
+       var(--color-background);
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+ 
+    background:
+       linear-gradient(
+ 
+          to bottom,
+ 
+          #3b82f6,
+ 
+          #38bdf8
+       );
+ 
+    border-radius:
+       999px;
+ 
+    border:
+       2px solid var(--color-background);
+ 
+    transition:
+       0.25s;
+ }
+ 
+ ::-webkit-scrollbar-thumb:hover {
+ 
+    background:
+       linear-gradient(
+ 
+          to bottom,
+ 
+          #2563eb,
+ 
+          #0ea5e9
+       );
+ }
+ 
+ /* =========================
+    FIREFOX
+ ========================= */
+ 
+ * {
+ 
+    scrollbar-width:
+       thin;
+ 
+    scrollbar-color:
+       #3b82f6
+       var(--color-background);
+ }

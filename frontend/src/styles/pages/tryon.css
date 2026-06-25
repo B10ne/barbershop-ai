@@ -1,0 +1,767 @@
+/* =========================================
+   RESET & BASE
+========================================= */
+
+:root {
+  --bg-base: #0d1117;
+  --bg-surface: #161b22;
+  --bg-card: #1c2333;
+  --bg-card-hover: #21293b;
+  --border: #30363d;
+  --border-accent: #2563eb44;
+  --blue: #2563eb;
+  --blue-light: #3b82f6;
+  --blue-glow: rgba(37, 99, 235, 0.35);
+  --green: #22c55e;
+  --green-dim: #16a34a;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --text-muted: #58677a;
+  --radius-card: 16px;
+  --radius-sm: 10px;
+}
+
+/* =========================================
+   PAGE
+========================================= */
+
+.tryon-page {
+  min-height: 100vh;
+  padding: 80px 32px 60px;
+  background: var(--bg-base);
+}
+
+.tryon-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.tryon-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.tryon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.tryon-header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.tryon-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2px;
+  letter-spacing: -0.3px;
+}
+
+.tryon-subtitle {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.tryon-back-btn {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tryon-back-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--blue);
+}
+
+/* =========================================
+   DOWNLOAD HEADER BUTTON
+========================================= */
+
+.tryon-download-header-btn {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tryon-download-header-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue-light);
+}
+
+.tryon-download-header-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MAIN GRID
+========================================= */
+
+.tryon-studio {
+  display: grid;
+  grid-template-columns: 200px 1fr 240px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* =========================================
+   USER PHOTO CARD (left column)
+========================================= */
+
+.tryon-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.tryon-card h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2px;
+}
+
+.card-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 12px;
+}
+
+.tryon-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+/* =========================================
+   PREVIEW CARD — Before/After Slider
+========================================= */
+
+.comparison-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.comparison-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+
+.comparison-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0f1a;
+  user-select: none;
+  touch-action: none;
+  cursor: col-resize;
+}
+
+/* "After" image — always visible as base */
+.comparison-after-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* "Before" image — wrapper clips, img stays full container width */
+.comparison-before-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  /* width driven by inline style (sliderPos%) */
+}
+
+.comparison-before-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*
+    * CRITICAL: render at the full comparison-preview width, NOT the
+    * clipped wrapper width — keeps both images pixel-perfectly aligned
+    * so the slider reveal is smooth with no jump or stretch.
+    * The CSS variable --preview-width is set inline on the container.
+    */
+  width: var(--preview-width);
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Divider line */
+.comparison-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: white;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Drag handle */
+.comparison-handle {
+  position: absolute;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+  z-index: 11;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.comparison-handle svg {
+  color: #0d1117;
+}
+
+/* Labels on the images */
+.comparison-before-label,
+.comparison-after-label {
+  position: absolute;
+  top: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 6px;
+  z-index: 12;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.comparison-before-label {
+  left: 12px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+}
+
+.comparison-after-label {
+  right: 12px;
+  background: rgba(37, 99, 235, 0.75);
+  color: #fff;
+}
+
+/* Placeholder when no generated image yet */
+.comparison-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  gap: 10px;
+  text-align: center;
+}
+
+.comparison-placeholder svg {
+  opacity: 0.3;
+}
+
+.comparison-placeholder p {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 160px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* =========================================
+   SIDEBAR — RIGHT
+========================================= */
+
+.tryon-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =========================================
+   HAIRSTYLE INFO CARD
+========================================= */
+
+.hairstyle-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.hairstyle-info-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+/* Match badge */
+.match-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+
+.match-badge::before {
+  content: "●";
+  font-size: 8px;
+}
+
+/* Reason / description */
+.hairstyle-info-card > p,
+.hairstyle-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+/* View style details link */
+.view-style-link {
+  font-size: 12px;
+  color: var(--blue-light);
+  cursor: pointer;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+/* Tags */
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.detail-tag {
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  color: var(--blue-light);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Specs grid */
+.detail-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.detail-spec {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  min-height: unset;
+}
+
+.detail-spec span {
+  display: block;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.detail-spec strong {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================
+   OPTIONS THUMBNAILS
+========================================= */
+
+.hairstyle-options {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 14px;
+}
+
+.hairstyle-options h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 10px;
+}
+
+.option-thumbs {
+  display: flex;
+  gap: 8px;
+}
+
+.option-thumb {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.option-thumb.active {
+  border-color: var(--blue);
+}
+
+.option-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.tryon-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tryon-primary-btn {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--blue);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tryon-primary-btn:hover:not(:disabled) {
+  background: var(--blue-light);
+}
+
+.tryon-primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tryon-secondary-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tryon-secondary-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue-light);
+}
+
+.consultation-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.consultation-btn:hover {
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+/* =========================================
+   PROGRESS PIPELINE
+========================================= */
+
+.progress-pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 14px 20px;
+}
+
+.progress-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.progress-step::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin: 0 8px;
+}
+
+.progress-step:last-child::after {
+  display: none;
+}
+
+.progress-step-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+}
+
+.progress-step.active {
+  color: var(--text-primary);
+}
+
+.progress-step.active .progress-step-icon {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.progress-step-label {
+  white-space: nowrap;
+}
+
+/* =========================================
+   GENERATING OVERLAY
+========================================= */
+
+.generating-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.generating-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 380px;
+  text-align: center;
+}
+
+.generating-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.generating-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+
+.generating-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.generating-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.generating-step {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+}
+
+.generating-step.active {
+  color: var(--green);
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.generating-step.loading {
+  color: var(--blue-light);
+  border-color: rgba(37, 99, 235, 0.3);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+/* =========================================
+   ERROR
+========================================= */
+
+.analysis-error {
+  margin-bottom: 16px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1024px) {
+  .tryon-studio {
+    grid-template-columns: 160px 1fr 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tryon-page {
+    padding: 80px 16px 40px;
+  }
+
+  .tryon-studio {
+    grid-template-columns: 1fr;
+  }
+
+  .tryon-header-center {
+    position: static;
+    transform: none;
+    flex: 1;
+    text-align: center;
+  }
+
+  .progress-pipeline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .progress-step::after {
+    display: none;
+  }
+}

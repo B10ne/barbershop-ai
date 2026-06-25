@@ -1,0 +1,25 @@
+.admin-sidebar{
+    width:260px;
+    background:#ffffff;
+    border-right:1px solid #e2e8f0;
+    height:100vh;
+}
+
+.admin-logo{
+    font-size:24px;
+    font-weight:700;
+    color:#3b82f6;
+}
+
+.menu-item{
+    display:flex;
+    gap:12px;
+    padding:14px 18px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.menu-item.active{
+    background:#3b82f6;
+    color:white;
+}
