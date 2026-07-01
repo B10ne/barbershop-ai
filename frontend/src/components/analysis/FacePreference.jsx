@@ -24,17 +24,17 @@ function PreferenceForm({
       const handleSubmit = () => {
 
          onSubmit({
-      
+
             hairType: hairType,
-      
+         
             profession: profession,
-      
+         
             personality: personality,
-      
+         
             maintenance: maintenance,
-      
+         
             formality: formality
-      
+         
          });
       
       };

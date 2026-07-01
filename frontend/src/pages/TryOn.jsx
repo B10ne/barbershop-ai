@@ -17,18 +17,31 @@ import AnalysisError from "../components/analysis/AnalysisError";
 
 function TryOn() {
 
-   const location = useLocation();
 
+   const location = useLocation();
+   console.log("========== LOCATION ==========");
+   console.log(location);
+   console.log("STATE =", location.state);
+   console.log("==============================");
    // ── Data from previous page ─────────────
    const hairstyle    = location.state?.hairstyle;
    const capturedImage = location.state?.capturedImage;
-
+   const preference = location.state?.preference;
+   console.log("Location State");
+   console.log(location.state);
+   console.log("Preference");
+   console.log(preference);
    // ── Try-On hook ─────────────────────────
    const { generatedImage, generating, error, generateTryOn } = useTryOn();
 
+   console.log(hairstyle);
    // ── Generate handler ────────────────────
    const handleGenerate = () => {
-      generateTryOn(capturedImage, hairstyle);
+      generateTryOn(
+         capturedImage,
+         hairstyle,
+         preference
+      );
    };
 
    // ── Validation ──────────────────────────
@@ -70,7 +83,6 @@ function TryOn() {
             <PreviewCard
                hairstyle={hairstyle}
                generatedImage={generatedImage}
-               originalImage={capturedImage}
             />
 
             {/* Right: info + actions */}

@@ -54,6 +54,12 @@ useHairstyleDetail() {
 
    const capturedImage =
       location.state?.capturedImage;
+      
+   const preference =
+      location.state?.preference;
+   
+   console.log("DETAIL PREFERENCE");
+   console.log(preference);
 
    // =========================
    // FETCH DETAIL
@@ -105,10 +111,9 @@ useHairstyleDetail() {
          {
 
             state: {
-
                hairstyle,
-
-               capturedImage
+               capturedImage,
+               preference
             }
          }
       );
@@ -126,8 +131,8 @@ useHairstyleDetail() {
             state: {
 
                hairstyle,
-
-               capturedImage
+               capturedImage,
+               preference
             }
          }
       );

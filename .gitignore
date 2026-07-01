@@ -28,3 +28,12 @@ uploads/
 
 # Build
 build/
+
+# Generated files
+backend/generated/
+
+# ZIP files
+*.zip
+
+# Windows shortcuts
+*.lnk

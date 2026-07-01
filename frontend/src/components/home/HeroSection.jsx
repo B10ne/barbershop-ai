@@ -31,7 +31,7 @@ return(
                <strong>{title} </strong>
             </span>
             <span className="hero-subtitle-white">
-                  Find Your Perfect Hairstyle Instantly
+            Gaya Rambut yang Sempurna dalam Sekejap
             </span>
          </h1>
 
@@ -39,7 +39,7 @@ return(
 
             {description ||
 
-            "Real-time face analysis powered by AI for personalized hairstyle recommendations."}
+            "Analisis wajah secara real-time yang didukung oleh AI untuk rekomendasi gaya rambut yang disesuaikan dengan kebutuhan masing-masing."}
 
             </p>
             <div className="hero-actions">
@@ -54,7 +54,7 @@ return(
 
                >
 
-               Start Face Analysis
+               Mulai Analisis Wajah
 
                </button>
 
@@ -73,11 +73,11 @@ return(
                <div className="feature-content">
 
                   <h4>
-                     AI Face Analysis
+                  Analisis Wajah Berbasis AI
                   </h4>
 
                   <p>
-                     Advanced facial recognition
+                  Pengenalan wajah tingkat lanjut
                   </p>
 
                </div>
@@ -95,11 +95,11 @@ return(
                <div className="feature-content">
 
                   <h4>
-                     Personalized Results
+                  Hasil yang Disesuaikan
                   </h4>
 
                   <p>
-                     Tailored for your features
+                  Disesuaikan dengan ciri-ciri Anda
                   </p>
 
                </div>
@@ -117,11 +117,11 @@ return(
                <div className="feature-content">
 
                   <h4>
-                     Realistic Try-On
+                  Coba Pakaian Secara Realistis
                   </h4>
 
                   <p>
-                     See before you cut
+                  Periksa dulu sebelum memotong
                   </p>
 
                </div>
@@ -139,11 +139,11 @@ return(
                <div className="feature-content">
 
                   <h4>
-                     Expert Consultation
+                  Konsultasi Ahli
                   </h4>
 
                   <p>
-                     AI Barber Assistant
+                  Asisten Tukang Cukur Berbasis AI
                   </p>
 
                </div>

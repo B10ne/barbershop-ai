@@ -1,0 +1,173 @@
+/* =========================================================
+   HairVision AI Top Bar
+========================================================= */
+
+.hv-topbar {
+  position: absolute;
+
+  top: 18px;
+  left: 28px;
+  right: 28px;
+
+  max-width: 1400px;
+  margin: 0 auto;
+
+  height: 64px;
+
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #171923;
+
+  border: 1px solid #2b3040;
+
+  border-radius: 18px;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  z-index: 9999;
+}
+
+/* =========================================================
+   Brand
+========================================================= */
+
+.topbar__brand {
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  user-select: none;
+}
+
+.topbar__logo-icon {
+  font-size: 22px;
+}
+
+.topbar__logo-text {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: #ffffff;
+
+  letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   Icon Button
+========================================================= */
+
+.topbar__icon-btn {
+  width: 42px;
+
+  height: 42px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #222634;
+
+  color: #ffffff;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition: 0.25s;
+}
+
+.topbar__icon-btn:hover {
+  background: #2d3345;
+
+  transform: translateY(-2px);
+}
+
+.topbar__icon-btn:active {
+  transform: scale(0.95);
+}
+
+.topbar__icon-btn svg {
+  width: 20px;
+
+  height: 20px;
+}
+
+/* =========================================================
+   Ghost Button (Home)
+========================================================= */
+
+.topbar__icon-btn--ghost {
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media (max-width: 900px) {
+  .hv-topbar {
+    left: 16px;
+
+    right: 16px;
+
+    top: 16px;
+
+    height: 60px;
+
+    border-radius: 16px;
+  }
+
+  .topbar__logo-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hv-topbar {
+    left: 12px;
+
+    right: 12px;
+
+    padding: 0 14px;
+  }
+
+  .topbar__logo-text {
+    display: none;
+  }
+
+  .topbar__logo-icon {
+    font-size: 20px;
+  }
+
+  .topbar__icon-btn {
+    width: 38px;
+
+    height: 38px;
+
+    font-size: 18px;
+  }
+}

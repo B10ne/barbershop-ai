@@ -1,9 +1,6 @@
 from database.prompts import (
-
     BASE_GENERATION_PROMPT,
-
     NEGATIVE_PROMPT,
-
     HAIRSTYLE_PROMPTS
 )
 
@@ -12,134 +9,303 @@ from database.prompts import (
 # =====================================
 
 def build_hairstyle_prompt(
-
-    hairstyle
+    hairstyle,
+    preference=None
 ):
 
     # =================================
-    # BASIC METADATA
+    # DATABASE METADATA
     # =================================
 
-    hairstyle_name = (
-        hairstyle["name"]
+    hairstyle_name = hairstyle.get("name", "")
+    description = hairstyle.get("description", "")
+    maintenance = hairstyle.get("maintenance", "")
+    preferred_length = hairstyle.get("preferred_length", "")
+    formality = hairstyle.get("formality", "")
+
+    personality_prompt = ", ".join(
+        hairstyle.get("personalities", [])
     )
 
-    description = (
-        hairstyle["description"]
+    profession_prompt = ", ".join(
+        hairstyle.get("professions", [])
     )
 
-    maintenance = (
-        hairstyle["maintenance"]
+    style_tags_prompt = ", ".join(
+        hairstyle.get("style_tags", [])
     )
 
-    preferred_length = (
-        hairstyle["preferred_length"]
+    hair_type_prompt = ", ".join(
+        hairstyle.get("hair_types", [])
     )
 
-    formality = (
-        hairstyle["formality"]
+    consultant_prompt = hairstyle.get(
+        "consultant_prompt",
+        ""
     )
 
-    # =================================
-    # PERSONALITY
-    # =================================
-
-    personality_prompt = (
-        ", ".join(
-            hairstyle["personality"]
-        )
-    )
-
-    # =================================
-    # STYLE TAGS
-    # =================================
-
-    style_tags_prompt = (
-        ", ".join(
-            hairstyle["style_tags"]
-        )
+    hairstyle_prompt = HAIRSTYLE_PROMPTS.get(
+        hairstyle_name,
+        "modern realistic men's hairstyle"
     )
 
     # =================================
-    # HAIR TYPES
+    # USER PREFERENCE
     # =================================
 
-    hair_type_prompt = (
-        ", ".join(
-            hairstyle["hair_types"]
-        )
-    )
+    user_hair_type = ""
+    user_profession = ""
+    user_personality = ""
+    user_maintenance = ""
+    user_formality = ""
 
-    # =================================
-    # SPECIFIC HAIRSTYLE PROMPT
-    # =================================
+    if preference:
 
-    hairstyle_prompt = (
+        if isinstance(preference, dict):
 
-        HAIRSTYLE_PROMPTS.get(
+            user_hair_type = preference.get(
+                "hair_type",
+                preference.get("hairType", "")
+            )
 
-            hairstyle_name,
+            user_profession = preference.get(
+                "profession",
+                ""
+            )
 
-            "modern realistic hairstyle"
-        )
-    )
+            user_personality = preference.get(
+                "personality",
+                ""
+            )
+
+            user_maintenance = preference.get(
+                "maintenance",
+                ""
+            )
+
+            user_formality = preference.get(
+                "formality",
+                ""
+            )
+
+        else:
+
+            user_hair_type = getattr(
+                preference,
+                "hair_type",
+                ""
+            )
+
+            user_profession = getattr(
+                preference,
+                "profession",
+                ""
+            )
+
+            user_personality = getattr(
+                preference,
+                "personality",
+                ""
+            )
+
+            user_maintenance = getattr(
+                preference,
+                "maintenance",
+                ""
+            )
+
+            user_formality = getattr(
+                preference,
+                "formality",
+                ""
+            )
 
     # =================================
     # FINAL PROMPT
     # =================================
 
     final_prompt = f"""
+{BASE_GENERATION_PROMPT}
 
-    {BASE_GENERATION_PROMPT}
+==================================================
+IDENTITY PRESERVATION
+==================================================
 
-    Hairstyle Name:
-    {hairstyle_name}
+Edit ONLY the FIRST image.
 
-    Hairstyle Description:
-    {description}
+The FIRST image is the customer.
 
-    Hair Type:
-    {hair_type_prompt}
+The SECOND image is ONLY a hairstyle reference.
 
-    Preferred Length:
-    {preferred_length}
+DO NOT copy the second person's:
 
-    Style Tags:
-    {style_tags_prompt}
+- face
+- eyes
+- eyebrows
+- nose
+- lips
+- ears
+- beard
+- skin tone
+- facial proportions
 
-    Personality:
-    {personality_prompt}
+Keep EXACTLY the same:
 
-    Formality:
-    {formality}
+- identity
+- facial structure
+- facial proportions
+- eyes
+- eyebrows
+- nose
+- mouth
+- jawline
+- ears
+- beard
+- skin tone
+- facial expression
+- pose
+- clothing
+- background
+- lighting
+- camera angle
 
-    Maintenance Level:
-    {maintenance}
+Only replace the hairstyle.
 
-    Hairstyle Details:
-    {hairstyle_prompt}
+Never replace identity.
 
-    ultra realistic hairstyle,
-    professional barber haircut,
-    photorealistic hair strands,
-    realistic lighting,
-    natural hairline,
-    realistic shadows,
-    clean masculine appearance,
-    premium barbershop quality,
-    realistic facial proportions,
-    highly detailed hair texture
-    """
+Never blend two faces.
 
-    # =================================
-    # RETURN
-    # =================================
+Never create before-after comparison.
+
+Never create split image.
+
+Never create collage.
+
+Generate ONE single realistic portrait.
+
+==================================================
+CUSTOMER PROFILE
+==================================================
+
+Hair Type:
+{user_hair_type}
+
+Profession:
+{user_profession}
+
+Personality:
+{user_personality}
+
+Maintenance Preference:
+{user_maintenance}
+
+Desired Formality:
+{user_formality}
+
+==================================================
+TARGET HAIRSTYLE
+==================================================
+
+Hairstyle Name:
+{hairstyle_name}
+
+Description:
+{description}
+
+Hair Texture:
+{hair_type_prompt}
+
+Preferred Length:
+{preferred_length}
+
+Maintenance:
+{maintenance}
+
+Formality:
+{formality}
+
+Suitable Profession:
+{profession_prompt}
+
+Suitable Personality:
+{personality_prompt}
+
+Style Tags:
+{style_tags_prompt}
+
+Professional Recommendation:
+{consultant_prompt}
+
+Detailed Hairstyle Style:
+
+{hairstyle_prompt}
+
+==================================================
+HAIRSTYLE REQUIREMENTS
+==================================================
+
+Copy ONLY the hairstyle characteristics from
+the second image.
+
+Match:
+
+- hair length
+- hair direction
+- fringe
+- layering
+- side fade
+- taper
+- volume
+- hair texture
+- density
+- side profile
+- back profile
+- hairline shape
+
+Blend naturally with the customer's head.
+
+Keep realistic scalp visibility.
+
+Generate natural hair strands.
+
+Create realistic fade transition.
+
+No fake wig.
+
+No artificial hair.
+
+==================================================
+QUALITY
+==================================================
+
+Professional premium barbershop.
+
+Ultra photorealistic.
+
+DSLR photography.
+
+Natural lighting.
+
+Natural shadow.
+
+8K quality.
+
+Individual realistic hair strands.
+
+Clean hairline.
+
+Sharp focus.
+
+Magazine quality.
+
+Male grooming editorial.
+
+"""
 
     return {
 
-        "prompt":
-            final_prompt,
+        "prompt": final_prompt,
 
-        "negative_prompt":
-            NEGATIVE_PROMPT
+        "negative_prompt": NEGATIVE_PROMPT
+
     }

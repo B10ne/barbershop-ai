@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import Topbar from "../components/layout/Topbar";
+import { ThemeProvider } from "../components/layout/ThemeProvider";
 import RecommendationPageHeader from "../components/recommendation/RecommendationPageHeader";
 import RecommendationSummary    from "../components/recommendation/RecommendationSummary";
 import RecommendationSection    from "../components/recommendation/RecommendationSection";
@@ -34,7 +35,8 @@ function Recommendation() {
   return (
     <div className="recommendation-page">
       <RecommendationPageHeader />
-
+      <ThemeProvider>
+      <Topbar />
       <RecommendationSummary
         prediction={prediction}
         preferences={preferences}
@@ -52,6 +54,7 @@ function Recommendation() {
       />
 
       <AvoidSection avoidRecommendations={avoidRecommendations} />
+      </ThemeProvider>
     </div>
   );
 }

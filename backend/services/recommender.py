@@ -185,17 +185,17 @@ def calculate_compatibility(
 
     # PERSONALITY MATCH
 
-    hairstyle_personality = [
+    hairstyle_personalities = [
 
         item.lower()
 
         for item in hairstyle.get(
-            "personality",
+            "personalities",
             []
         )
     ]
 
-    if personality in hairstyle_personality:
+    if personality in hairstyle_personalities:
 
         bonus += 8
 
@@ -389,7 +389,7 @@ def get_recommendations(
 
             hairstyle
             .get(
-                "reason",
+                "reasons",
                 {}
             )
             .get(
@@ -454,10 +454,13 @@ def get_recommendations(
     avoid_recommendations = sorted(
         scored_hairstyles,
         key=lambda item:
-            item["scores"].get(
-                best_face_shape,
-                0
-            )
+        item.get(
+            "scores",
+            {}
+        ).get(
+            best_face_shape,
+            0
+        )
     )[:4]
 
     # =====================================

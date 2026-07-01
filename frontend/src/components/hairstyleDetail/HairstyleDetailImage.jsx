@@ -11,7 +11,7 @@ function HairstyleDetailImage({ hairstyle }) {
         <img
           src={`${BASE}/${images[0]}`}
           alt={hairstyle?.name}
-          className="detail-image"
+          className="hdetail-image"
         />
       </div>
 

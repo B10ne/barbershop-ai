@@ -1,23 +1,18 @@
-function AnalysisHeader() {
+function RecommendationHeader() {
 
    return (
 
-      <div className="analysis-header">
+      <div className="scan-header">
 
          <h1>
-
-            AI Face Analysis
-
+         <span className="ai-gradient">
+               <strong>Face</strong>
+            </span>
+             Result
          </h1>
 
          <p>
-
-            Personalized hairstyle
-            recommendations based on
-            your face shape,
-            profession, personality,
-            and hair preferences.
-
+         Try the AI ​​Hairstyle Recommendation experience for your best look.
          </p>
 
       </div>
@@ -26,4 +21,4 @@ function AnalysisHeader() {
 
 }
 
-export default AnalysisHeader;
+export default RecommendationHeader;

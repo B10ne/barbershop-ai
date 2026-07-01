@@ -15,13 +15,11 @@ import {
     const navigate =
        useNavigate();
  
-    const {
- 
-       compareItems = [],
- 
-       capturedImage
- 
-    } = location.state || {};
+       const {
+         compareItems = [],
+         capturedImage,
+         preference
+      } = location.state || {};
  
     // =========================
     // TRY ON
@@ -41,10 +39,9 @@ import {
           {
  
              state: {
- 
-                hairstyle,
- 
-                capturedImage
+               hairstyle,
+               capturedImage,
+               preference
              }
           }
        );
@@ -69,9 +66,9 @@ import {
  
              state: {
  
-                hairstyle,
- 
-                capturedImage
+               hairstyle,
+               capturedImage,
+               preference
              }
           }
        );
@@ -96,9 +93,9 @@ import {
  
              state: {
  
-                hairstyle,
- 
-                capturedImage
+               hairstyle,
+               capturedImage,
+               preference
              }
           }
        );

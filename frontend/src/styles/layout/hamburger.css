@@ -1,0 +1,259 @@
+/* =========================================================
+   Overlay
+========================================================= */
+
+.hm-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.18);
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.25s;
+
+  z-index: 9998;
+}
+
+.hm-overlay--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================================================
+   Drawer
+========================================================= */
+
+.hm-drawer {
+  position: fixed;
+
+  top: 84px;
+  right: 24px;
+
+  width: 280px;
+
+  background: #171923;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-radius: 18px;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+
+  overflow: hidden;
+
+  transform: translateY(-10px) scale(0.96);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: transform 0.25s ease, opacity 0.25s ease;
+
+  z-index: 9999;
+}
+
+.hm-drawer--open {
+  transform: translateY(0) scale(1);
+
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+/* =========================================================
+   Header
+========================================================= */
+
+.hm-header {
+  padding: 20px;
+}
+
+.hm-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+.hm-brand-icon {
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 12px;
+
+  background: #232838;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #4b88ff;
+
+  flex-shrink: 0;
+}
+
+.hm-brand-name {
+  margin: 0;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: #ffffff;
+}
+
+.hm-brand-tagline {
+  margin-top: 4px;
+
+  font-size: 12px;
+
+  color: #8d95b0;
+}
+
+/* =========================================================
+   Divider
+========================================================= */
+
+.hm-divider {
+  height: 1px;
+
+  margin: 0 18px;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================================================
+   Navigation
+========================================================= */
+
+.hm-nav {
+  padding: 12px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.hm-nav-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: #d6d9e6;
+
+  transition: 0.22s;
+}
+
+.hm-nav-item:hover {
+  background: #232838;
+}
+
+.hm-nav-item--active {
+  background: rgba(59, 127, 245, 0.15);
+
+  color: #4b88ff;
+}
+
+.hm-nav-icon {
+  width: 18px;
+
+  height: 18px;
+
+  flex-shrink: 0;
+}
+
+.hm-nav-label {
+  flex: 1;
+
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+.hm-nav-arrow {
+  opacity: 0.35;
+
+  transition: 0.25s;
+}
+
+.hm-nav-item:hover .hm-nav-arrow {
+  opacity: 1;
+
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   Footer
+========================================================= */
+
+.hm-footer {
+  padding: 18px;
+
+  text-align: center;
+}
+
+.hm-footer-logo {
+  font-weight: 700;
+
+  color: #ffffff;
+
+  font-size: 15px;
+}
+
+.hm-version {
+  margin-top: 6px;
+
+  font-size: 12px;
+
+  color: #8d95b0;
+}
+
+.hm-powered {
+  margin-top: 4px;
+
+  font-size: 11px;
+
+  color: #6f7693;
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media (max-width: 768px) {
+  .hm-drawer {
+    width: 250px;
+
+    right: 16px;
+
+    top: 76px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hm-drawer {
+    left: 12px;
+    right: 12px;
+
+    width: auto;
+  }
+}

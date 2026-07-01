@@ -1,5 +1,6 @@
 import os
-
+import uuid
+import requests
 import replicate
 
 from dotenv import load_dotenv
@@ -10,112 +11,144 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# =====================================
-# TOKEN
-# =====================================
+REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 
-os.environ["REPLICATE_API_TOKEN"] = (
-    os.getenv(
-        "REPLICATE_API_TOKEN"
-    )
-)
+if not REPLICATE_API_TOKEN:
+    raise Exception("REPLICATE_API_TOKEN tidak ditemukan.")
+
+os.environ["REPLICATE_API_TOKEN"] = REPLICATE_API_TOKEN
 
 # =====================================
 # GENERATE AI TRYON
 # =====================================
 
 def generate_ai_tryon(
-
-    image_path,
-
+    user_image_path,
+    reference_image_path,
     prompt_data
 ):
 
     try:
 
-        # =============================
-        # OPEN IMAGE
-        # =============================
+        generated_dir = os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "generated"
+        )
 
-        with open(
+        os.makedirs(
+            generated_dir,
+            exist_ok=True
+        )
 
-            image_path,
-
-            "rb"
-
-        ) as image_file:
-
-            # =========================
-            # REPLICATE GENERATION
-            # =========================
+        with open(user_image_path, "rb") as user_image, \
+             open(reference_image_path, "rb") as reference_image:
 
             output = replicate.run(
 
-                "black-forest-labs/flux-kontext-pro",
+                "google/nano-banana-pro",
 
                 input={
 
-                    "input_image":
-                        image_file,
+                    "prompt": prompt_data["prompt"],
 
-                    "prompt":
-                        prompt_data["prompt"],
+                    "image_input": [
 
-                    "negative_prompt":
-                        prompt_data[
-                            "negative_prompt"
-                        ],
+                        user_image,
 
-                    "aspect_ratio":
-                        "1:1",
+                        reference_image
 
-                    "output_format":
-                        "png",
+                    ],
 
-                    "safety_tolerance":
-                        2,
+                    "aspect_ratio": "match_input_image",
 
-                    "prompt_upsampling":
-                        True
+                    "output_format": "png",
+
+                    "allow_fallback_model": False,
+
+                    "safety_filter_level": "block_low_and_above"
+
                 }
+
             )
 
-        # =============================
-        # OUTPUT URL
-        # =============================
+        # =====================================
+        # DEBUG OUTPUT
+        # =====================================
+
+        print("========== REPLICATE OUTPUT ==========")
+        print(output)
+        print(type(output))
+        print("======================================")
+
+        # =====================================
+        # AMBIL URL
+        # =====================================
 
         if isinstance(output, list):
 
-            return output[0]
+            image_url = output[0]
 
-        return output
+        elif isinstance(output, str):
 
-    # =====================================
-    # FALLBACK
-    # =====================================
+            image_url = output
 
-    except Exception as e:
+        elif isinstance(output, dict):
 
-        print(
-            "REPLICATE ERROR:",
-            e
+            image_url = (
+                output.get("uri")
+                or output.get("url")
+            )
+
+        else:
+
+            image_url = getattr(output, "url", None)
+
+        if not image_url:
+
+            raise Exception(
+                f"Gagal mengambil URL output: {output}"
+            )
+
+        # =====================================
+        # DOWNLOAD
+        # =====================================
+
+        response = requests.get(image_url)
+
+        response.raise_for_status()
+
+        filename = f"{uuid.uuid4().hex}.png"
+
+        save_path = os.path.join(
+            generated_dir,
+            filename
         )
+
+        with open(save_path, "wb") as file:
+
+            file.write(response.content)
 
         return {
 
-            "mode":
-                "preview",
+            "success": True,
 
-            "success":
-                True,
+            "image_url": image_url,
 
-            "message":
-                "AI Try-On preview mode",
+            "local_path": save_path,
 
-            "preview_image":
-                prompt_data.get(
-                    "preview_image"
-                )
+            "filename": filename
+
         }
 
-        return None
+    except Exception as e:
+
+        print("REPLICATE ERROR:", e)
+
+        return {
+
+            "success": False,
+
+            "error": str(e)
+
+        }

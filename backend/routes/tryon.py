@@ -1,6 +1,6 @@
-from fastapi import APIRouter
+import os
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, ConfigDict
 
 from services.image_handler import (
     save_base64_image
@@ -17,25 +17,42 @@ from services.generative_tryon import (
 from services.recommender import (
     get_all_hairstyles
 )
+from fastapi import APIRouter, Request
+
 
 router = APIRouter()
 
 # =====================================
 # REQUEST MODEL
 # =====================================
+from pydantic import BaseModel, Field, ConfigDict
 
-class TryOnRequest(
-    BaseModel
-):
+class UserPreference(BaseModel):
+
+    hair_type: str = Field(alias="hairType")
+
+    profession: str
+
+    personality: str
+
+    maintenance: str
+
+    formality: str
+
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+class TryOnRequest(BaseModel):
 
     image: str
 
     hairstyle: str
 
+    preference: UserPreference
+
 # =====================================
 # GENERATE TRYON
 # =====================================
-
 @router.post(
     "/generate-tryon"
 )
@@ -110,26 +127,41 @@ async def generate_tryon(
             }
 
         # =================================
+        # REFERENCE IMAGE
+        # =================================
+
+        BASE_DIR = os.path.dirname(
+            os.path.dirname(__file__)
+        )
+
+        reference_image_path = os.path.join(
+            BASE_DIR,
+            "images",
+            selected_hairstyle["image"]
+        )
+
+        print("REFERENCE IMAGE:", reference_image_path)
+        # =================================
         # BUILD AI PROMPT
         # =================================
 
-        prompt_data = (
-            build_hairstyle_prompt(
-                selected_hairstyle
-            )
+        prompt_data = build_hairstyle_prompt(
+            selected_hairstyle,
+            data.preference.model_dump()
         )
 
         # =================================
         # GENERATE AI IMAGE
         # =================================
-
-        generated_image = (
-            generate_ai_tryon(
-
-                image_path,
-
-                prompt_data
-            )
+        if not os.path.exists(reference_image_path):
+            return {
+                "error":
+                    f"Reference image not found: {reference_image_path}"
+            }
+        generated_image = generate_ai_tryon(
+            image_path,
+            reference_image_path,
+            prompt_data
         )
 
         # =================================
@@ -151,7 +183,7 @@ async def generate_tryon(
         return {
 
             "generated_image":
-                generated_image
+                generated_image["image_url"]
         }
 
     except Exception as e:

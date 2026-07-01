@@ -18,7 +18,7 @@ function Navbar() {
             onClick={() => navigate("/")}
             style={{ cursor:"pointer" }}
          >
-            AI BARBERSHOP
+            DND BARBERSHOP
          </div>
 
          <div className="navbar-links">

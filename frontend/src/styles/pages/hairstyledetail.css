@@ -109,22 +109,25 @@
   align-self: start;
 }
 
-.detail-image-wrapper {
+.hdetail-image-wrapper {
   width: 100%;
-  height: fit-content;
-  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--bg-element);
+  border-radius: 18px;
+  background: #fff;
 }
 
-.detail-image {
+.hdetail-image {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
+  border-radius: 20px;
   object-fit: cover;
-  display: block;
+  object-position: center top;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
 }
-
 .detail-thumbnails {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

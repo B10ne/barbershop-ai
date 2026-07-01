@@ -8,7 +8,10 @@ function RecommendationPageHeader() {
         &#8592;
       </button>
       <div className="rec-page-header">
-        <h1>Your Analysis Result</h1>
+      <h1><span className="ai-gradient">
+              <strong>Hairstyles</strong>
+           </span>
+         Analysis Result</h1>
         <p>AI has analyzed your facial features</p>
       </div>
     </>

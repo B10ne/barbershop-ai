@@ -3,6 +3,8 @@ import {
   useState
 
 } from "react";
+import Topbar from "../components/layout/Topbar";
+import { ThemeProvider } from "../components/layout/ThemeProvider";
 
 import FacePreviewCard
 from "../components/analysis/FacePreviewCard";
@@ -165,7 +167,11 @@ function AnalysisResult() {
 
   return (
 
+
+
    <div className="analysis-page">
+         <ThemeProvider>
+         <Topbar />
 
         {/* =====================
             HEADER
@@ -241,8 +247,9 @@ function AnalysisResult() {
         {/* =====================
             RESULT
         ====================== */}
-
+  </ThemeProvider>
      </div>
+   
   );
 }
 

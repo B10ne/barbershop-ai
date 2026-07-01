@@ -501,30 +501,190 @@ RIGHT
 /* =========================
 RESPONSIVE
 ========================= */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 0 35px;
 
-@media (max-width: 1200px) {
-  .hero-section {
-    flex-direction: column;
-
-    text-align: center;
-
-    gap: 60px;
+    grid-template-columns: 180px 1fr 140px;
   }
 
-  .hero-left,
-  .hero-right {
-    width: 100%;
+  .navbar-links {
+    gap: 22px;
+
+    margin-right: 20px;
+  }
+
+  .navbar-logo {
+    font-size: 26px;
+  }
+
+  .hero-section {
+    padding: 120px 40px 60px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .hero-left {
+    align-items: center;
+
+    text-align: center;
+  }
+
+  .hero-left h1 {
+    max-width: 100%;
+
+    font-size: 58px;
+
+    text-align: center;
+  }
+
+  .hero-subtitle-white {
+    font-size: 48px;
   }
 
   .hero-left p {
     width: 100%;
+
+    text-align: center;
   }
 
   .hero-actions {
     justify-content: center;
   }
 
+  .hero-right {
+    width: 100%;
+  }
+
+  .hero-right img {
+    width: 600px;
+
+    max-width: 100%;
+  }
+
+  .hero-features {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    height: 75px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-button {
+    width: 130px;
+
+    height: 42px;
+
+    font-size: 14px;
+  }
+
+  .navbar-logo {
+    font-size: 26px;
+  }
+
+  .hero-section {
+    padding: 100px 22px 40px;
+  }
+
+  .hero-content {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .hero-left {
+    order: 1;
+
+    align-items: flex-start;
+  }
+
+  .hero-right {
+    order: 2;
+
+    width: 100%;
+  }
+
+  .hero-right img {
+    width: 100%;
+  }
+
   .hero-left h1 {
-    font-size: 68px;
+    font-size: 48px;
+
+    line-height: 1.05;
+  }
+
+  .hero-subtitle-white {
+    font-size: 34px;
+
+    line-height: 1.1;
+  }
+
+  .hero-left p {
+    width: 100%;
+
+    font-size: 15px;
+  }
+
+  .hero-primary-btn {
+    width: 100%;
+
+    height: 56px;
+  }
+
+  .hero-actions {
+    width: 100%;
+  }
+
+  .hero-features {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .hero-feature {
+    padding: 18px;
+  }
+}
+@media (max-width: 480px) {
+  .hero-left h1 {
+    font-size: 34px;
+  }
+
+  .hero-subtitle-white {
+    font-size: 22px;
+  }
+
+  .hero-left p {
+    font-size: 14px;
+  }
+
+  .feature-content h4 {
+    font-size: 15px;
+  }
+
+  .feature-content p {
+    font-size: 13px;
+  }
+
+  .hero-primary-btn {
+    font-size: 15px;
   }
 }

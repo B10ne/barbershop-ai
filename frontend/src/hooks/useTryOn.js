@@ -37,12 +37,10 @@ export default function useTryOn() {
    ] = useState("");
 
    const generateTryOn = async (
-
       capturedImage,
-
-      hairstyle
-
-   ) => {
+      hairstyle,
+      preference
+   )=> {
 
       try {
 
@@ -92,15 +90,18 @@ export default function useTryOn() {
 
          const payload = {
 
-            image:
-
-               capturedImage,
-
-            hairstyle:
-
-               hairstyle.name
-
+            image: capturedImage,
+         
+            hairstyle: hairstyle.name,
+         
+            preference: preference
+         
          };
+
+         console.log("=== TRY ON PAYLOAD ===");
+         console.log(payload);
+         console.log("Preference:", preference);
+         console.log("======================");
 
          const response =
 
@@ -132,27 +133,20 @@ export default function useTryOn() {
 
             );
 
-         if (!response.ok) {
+            if (!response.ok) {
 
-            const errorData =
-
-               await response.json();
-
-            console.log(
-
-               errorData
-
-            );
-
-            setError(
-
-               "Try On Failed"
-
-            );
-
-            return;
-
-         }
+               const errorData =
+                  await response.json();
+            
+               console.error("BACKEND 422");
+               console.error(errorData);
+            
+               setError(
+                  JSON.stringify(errorData, null, 2)
+               );
+            
+               return;
+            }
 
          const data =
 

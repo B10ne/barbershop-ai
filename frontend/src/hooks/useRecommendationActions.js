@@ -22,11 +22,7 @@ import {
     const goToDetail = (item) => {
 
       const payload = JSON.parse(
-   
-         localStorage.getItem(
-            "recommendationPayload"
-         )
-   
+         localStorage.getItem("recommendationPayload")
       );
    
       navigate(
@@ -39,8 +35,9 @@ import {
    
                hairstyle: item,
    
-               capturedImage:
-                  payload?.capturedImage
+               capturedImage: payload?.capturedImage,
+   
+               preference: payload?.preferences
    
             }
    
@@ -49,23 +46,31 @@ import {
       );
    
    };
- 
     // =========================
     // TRY ON
     // =========================
  
-    const goToTryOn =
-    (item) => {
- 
-       setStorage(
- 
-          "selectedHairstyle",
- 
-          item
-       );
- 
-       navigate("/try-on");
-    };
+    const goToTryOn = (item) => {
+
+      const payload = JSON.parse(
+         localStorage.getItem("recommendationPayload")
+      );
+   
+      navigate("/try-on", {
+   
+         state: {
+   
+            hairstyle: item,
+   
+            capturedImage: payload?.capturedImage,
+   
+            preference: payload?.preferences
+   
+         }
+   
+      });
+   
+   };
  
     // =========================
     // CONSULTATION

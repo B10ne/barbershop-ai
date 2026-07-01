@@ -1,325 +1,327 @@
-/* =====================================
-   HEADER
-===================================== */
+/* =====================================================
+   SCAN FACE PAGE — DARK THEME (unified)
+   ===================================================== */
 
-.scan-header{
-   text-align:center;
-   margin-bottom:24px;
-}
+.scan-page {
+  --bg-base: #0d0f14;
+  --bg-panel: #13161f;
+  --bg-element: #1a1d26;
+  --bg-hover: #1e2130;
+  --border: #1e2130;
+  --border-soft: #2a2d3a;
+  --text-primary: #f0f2f8;
+  --text-sec: #c4c8dc;
+  --text-muted: #8b8fa8;
+  --accent: #3b7ff5;
+  --success: #22c55e;
+  --radius-md: 12px;
+  --radius-lg: 16px;
 
-.scan-header h1{
-   font-size:42px;
-   font-weight:700;
-   color:#0f172a;
-   margin-bottom:8px;
-}
-
-.scan-header p{
-   color:#64748b;
-   font-size:16px;
-}
-
-/* =====================================
-   PAGE
-===================================== */
-
-.scan-page{
-   min-height:100vh;
-   padding:40px 20px;
-   display:flex;
-   flex-direction:column;
-   align-items:center;
-}
-
-.scan-wrapper{
-   display:flex;
-   flex-direction:column;
-   align-items:center;
+  min-height: 100vh;
+  background: var(--bg-base);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-primary);
 }
 
 /* =====================================
-   CAMERA WRAPPER
-===================================== */
+       HEADER
+    ===================================== */
 
-.camera-wrapper{
-   position:relative;
-   width:430px;
-   height:430px;
+.scan-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
 
-   display:flex;
-   align-items:center;
-   justify-content:center;
+.scan-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.scan-header p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 /* =====================================
-   CAMERA CIRCLE
-===================================== */
+       SCAN WRAPPER
+    ===================================== */
 
-.camera-circle{
-   width:380px;
-   height:380px;
-
-   border-radius:50%;
-   overflow:hidden;
-
-   position:absolute;
-   z-index:2;
-
-   background:#000;
-
-   box-shadow:
-      0 0 40px rgba(59,130,246,.25);
-
-   transition:
-      opacity .5s ease,
-      transform .5s ease;
-}
-
-.camera-circle video{
-   width:100%;
-   height:100%;
-   object-fit:cover;
+.scan-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 /* =====================================
-   CAMERA HIDDEN
-===================================== */
+       CAMERA WRAPPER
+    ===================================== */
 
-.camera-hidden{
-   opacity:0;
-   transform:scale(.95);
+.camera-wrapper {
+  position: relative;
+  width: 430px;
+  height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* =====================================
-   PROGRESS RING
-===================================== */
+       CAMERA CIRCLE
+    ===================================== */
 
-.progress-ring{
-   position:absolute;
-   z-index:1;
-   transform:rotate(-90deg);
+.camera-circle {
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 2;
+  background: var(--bg-element);
+  box-shadow: 0 0 0 1px var(--border-soft), 0 0 50px rgba(59, 127, 245, 0.2);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.ring-background{
-   fill:none;
-   stroke:#dbeafe;
-   stroke-width:12;
-}
-
-.ring-progress{
-   fill:none;
-   stroke:#3b82f6;
-   stroke-width:12;
-   stroke-linecap:round;
-
-   transition:
-      stroke-dashoffset .3s ease;
+.camera-circle video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* =====================================
-   PROGRESS TEXT
-===================================== */
+       CAMERA HIDDEN
+    ===================================== */
 
-.progress-text{
-   position:absolute;
-
-   top:50%;
-   left:50%;
-
-   transform:
-      translate(-50%,-50%);
-
-   z-index:3;
-
-   color:#ffffff;
-
-   font-size:32px;
-   font-weight:700;
-
-   text-shadow:
-      0 2px 10px rgba(0,0,0,.5);
+.camera-hidden {
+  opacity: 0;
+  transform: scale(0.95);
 }
 
 /* =====================================
-   STATUS BADGES
-===================================== */
+       PROGRESS RING
+    ===================================== */
 
-.scan-status{
-   margin-top:24px;
-
-   display:flex;
-   justify-content:center;
-   gap:16px;
-   flex-wrap:wrap;
+.progress-ring {
+  position: absolute;
+  z-index: 1;
+  transform: rotate(-90deg);
 }
 
-.status-item{
-   display:flex;
-   align-items:center;
-   gap:8px;
+.ring-background {
+  fill: none;
+  stroke: var(--border-soft);
+  stroke-width: 12;
+}
 
-   padding:10px 18px;
-
-   border-radius:999px;
-
-   background:#052e16;
-   color:#4ade80;
-
-   font-weight:600;
-   font-size:14px;
+.ring-progress {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
 }
 
 /* =====================================
-   ANALYSIS STATUS
-===================================== */
+       PROGRESS TEXT
+    ===================================== */
 
-.scan-progress{
-   margin-top:24px;
-   text-align:center;
-}
-
-.scan-progress p{
-   font-size:16px;
-   color:#334155;
-}
-
-/* =====================================
-   SUCCESS OVERLAY
-===================================== */
-
-.camera-success-overlay{
-
-   position:absolute;
-   inset:0;
-
-   display:flex;
-   flex-direction:column;
-
-   justify-content:center;
-   align-items:center;
-
-   gap:15px;
-
-   backdrop-filter:
-      blur(8px);
-
-   z-index:999;
-
-   border-radius:50%;
-
-   animation:
-      successFade .5s ease forwards;
-}
-
-.camera-success-overlay svg{
-
-   color:#22c55e;
-
-   animation:
-      successPop .6s ease;
-}
-
-.camera-success-overlay h2{
-
-   margin:0;
-
-   color:#22c55e;
-
-   font-size:28px;
-   font-weight:700;
-}
-
-.camera-success-overlay p{
-
-   margin:0;
-
-   color:#cbd5e1;
-
-   font-size:15px;
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  color: var(--text-primary);
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 /* =====================================
-   LEGACY SUCCESS
-===================================== */
+       STATUS BADGES
+    ===================================== */
 
-.analysis-success{
-   display:none;
+.scan-status {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: var(--success);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.status-item.inactive {
+  background: var(--bg-element);
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
 }
 
 /* =====================================
-   ANIMATION
-===================================== */
+       SCAN PROGRESS BAR
+    ===================================== */
 
-@keyframes successFade{
-
-   from{
-      opacity:0;
-   }
-
-   to{
-      opacity:1;
-   }
+.scan-progress {
+  text-align: center;
+  width: 430px;
 }
 
-@keyframes successPop{
+.scan-progress p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
 
-   0%{
-      opacity:0;
-      transform:scale(.5);
-   }
+.scan-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
 
-   70%{
-      transform:scale(1.15);
-   }
-
-   100%{
-      opacity:1;
-      transform:scale(1);
-   }
+.scan-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  border-radius: 999px;
+  transition: width 0.3s ease;
 }
 
 /* =====================================
-   RESPONSIVE
-===================================== */
+       SUCCESS OVERLAY
+    ===================================== */
 
-@media(max-width:768px){
-
-   .camera-wrapper{
-      width:340px;
-      height:340px;
-   }
-
-   .camera-circle{
-      width:300px;
-      height:300px;
-   }
-
-   .progress-text{
-      font-size:26px;
-   }
-
-   .camera-success-overlay h2{
-      font-size:22px;
-   }
-
-   .status-item{
-      font-size:13px;
-      padding:8px 14px;
-   }
+.camera-success-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(8px);
+  background: rgba(13, 15, 20, 0.6);
+  z-index: 999;
+  border-radius: 50%;
+  animation: successFade 0.5s ease forwards;
 }
-.analysis-complete{
 
-   width:430px;
-   height:430px;
+.camera-success-overlay svg {
+  color: var(--success);
+  animation: successPop 0.6s ease;
+}
 
-   display:flex;
-   flex-direction:column;
+.camera-success-overlay h2 {
+  margin: 0;
+  color: var(--success);
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 20px;
+}
 
-   justify-content:center;
-   align-items:center;
+/* =====================================
+       ANALYSIS COMPLETE (full size)
+    ===================================== */
 
-   color:white;
+.analysis-complete {
+  width: 430px;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-primary);
+  animation: fadeIn 0.5s ease;
+}
 
-   animation:
-   fadeIn .5s ease;
+/* =====================================
+       ANIMATIONS
+    ===================================== */
+
+@keyframes successFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =====================================
+       RESPONSIVE
+    ===================================== */
+
+@media (max-width: 768px) {
+  .camera-wrapper {
+    width: 340px;
+    height: 340px;
+  }
+
+  .camera-circle {
+    width: 300px;
+    height: 300px;
+  }
+
+  .progress-text {
+    font-size: 26px;
+  }
+
+  .camera-success-overlay h2 {
+    font-size: 18px;
+  }
+
+  .status-item {
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+
+  .scan-progress {
+    width: 340px;
+  }
+
+  .scan-header h1 {
+    font-size: 28px;
+  }
 }
